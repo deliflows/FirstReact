@@ -1,0 +1,76 @@
+1. Create a new react project
+    a. We will go into the directory where we want our project folder to be. Ex, Chapter 5
+    b. npx create-react-app {project name}
+    c cd into the folder name.
+    d. npm start (This should open up my browser at localhost:3000)
+
+2. Pare down my project some.
+    a. In the public folder, remove all files except index.html
+    b. remove everything from source foulder (scr).
+    c. Create index.js in the src folder.
+
+3.Begin adding the things needed to the page to get to see it.
+    a. import React from 'react'; <------ This allows us to use the features of react.
+        Import the react package
+    b. import ReactDOM from 'react-dom/client'; <------- This allows us to ineract with the DOM.
+        Import the reactDOM package.
+    c. const rootElement = document.getElementById('root');
+        Creatae a variable that is holding on tho the root element in our index.html page.
+    d. const root = ReactDOM.createRoot(rootElement);
+        Create a variable that allows the reactDOM to find the root element.
+    e. root.render(
+        <h1>Hello!</h1>
+    )
+        Render information on the root element
+4. To add a new component area:
+    In the pareent, I add the component tage for the area I want to create. <App />
+    I create the Javascript file for the component. App.js
+    I create a simple function that reurns just an h1. function App() {return(<h1>Hell</h1>)}
+    I put the export statement at the bottom. export default App
+    I import the file in the parent. import App from './App'
+5. Using Props:
+    !!! A prop can only be passed from Parent to child, not child to parent.
+    To pass a prop forward, in the component tag, we define the props <Card firstname="David" lastname="Hiller"/>
+    Go to the child's script and find the function for this components. The first parameter holds onto all props. function Card(props){}
+    To use the props' information, we can:
+        Create a variable and use the object properties as is. EXAMPLE function Card(prop){firstname = prop.firstname}
+        We can destructure the prop in the parameter area. function Card({firstname, lastname})
+
+We can write properties and attributes like we would in HTML. However:
+1. In general, if the word would be two words, or hyphenate, we will go ahead and camel case it
+2. If the prop has a numerical attribute, we will use {} around the number.
+3. Class is className
+4. To add inline styling, we will add style={{color:"red"}}
+
+Getting information from an input area:
+1. Created an event listener on the input.
+2. Create a function for the event listener to be able to identify what we do when we type.
+3. Create a state for the current input value.
+4. Use the event listener function to set the state.
+5. Put the state as the value in the input area.
+
+EXAMPLE of the above process:
+import { useState } from 'react';
+
+function Searchbar(){
+    const [theSearchTerm, setTheSearchTerm] = useState('');
+    function onInputChange(event){
+        setTheSearchTerm(event.target.value);
+
+    }
+    function onFormSubmit(event){
+        event.preventDefault();
+        console.log("Looking up " + theSearchTerm);
+        setTheSearchTerm('');
+    }
+    return(
+        <div>
+            <form onSubmit={onFormSubmit}>
+                <input onChange={onInputChange} value={theSearchTerm}/>
+                <button>Search</button>
+            </form>
+        </div>
+    )
+}
+
+export default Searchbar;
